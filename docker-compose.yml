@@ -1,0 +1,14 @@
+version: '3.0'
+services:
+  pro-app:
+    image: tubes-2-wbd-client:latest
+    build: ./
+    container_name: pro-app
+    ports:
+      - 5173:5173
+    volumes:
+      - '.:/app'
+    stdin_open: true
+    tty: true
+    environment:
+      - CHOKIDAR_USEPOLLING=true
