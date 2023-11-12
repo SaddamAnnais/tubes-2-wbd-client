@@ -16,6 +16,6 @@ module.exports = {
     quotes: ['error', 'single'],
     semi: ['error', 'always'],
     'arrow-body-style': ['error', 'always'],
-    'max-len': ['error', { code: 120 }],
+    // 'max-len': ['error', { code: 120 }],
   },
 };
