@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 
 import { Label } from '@/components/ui/label';
@@ -10,10 +12,26 @@ import { LogIn } from 'lucide-react';
 
 import { Link } from 'react-router-dom';
 
+import { useAuth } from '@/contexts';
+
 const Login = () => {
+  const { login } = useAuth();
+
+  const [formData, setFormData] = useState({
+    username: '',
+    password: '',
+  });
+
+  const onChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
   return (
     <div className="w-full h-screen flex flex-col items-center justify-center p-0">
-      <Card className="w-1/3 h -1/2">
+      <Card className="w-1/3 h-1/2">
         <CardHeader>
           <CardTitle className="text-left">Login</CardTitle>
           <CardDescription className="text-left">Log into your Premium Creator Account</CardDescription>
@@ -25,19 +43,35 @@ const Login = () => {
                 <Label htmlFor="username" className="text-left">
                   Username
                 </Label>
-                <Input id="username" placeholder="ex: JohnDoe123" />
+                <Input
+                  value={formData.username}
+                  onChange={onChangeInput}
+                  name="username"
+                  placeholder="ex: JohnDoe123"
+                />
               </div>
               <div className="flex flex-col space-y-1.5">
                 <Label htmlFor="password" className="text-left">
                   Password
                 </Label>
-                <Input type="password" id="password" placeholder="Password" />
+                <Input
+                  value={formData.password}
+                  onChange={onChangeInput}
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                />
               </div>
             </div>
           </form>
         </CardContent>
         <CardFooter className="flex flex-col">
-          <Button className="w-full flex">
+          <Button
+            onClick={() => {
+              return login(formData.username, formData.password);
+            }}
+            className="w-full flex"
+          >
             <LogIn />
             <span className="p-1">Login</span>
           </Button>
