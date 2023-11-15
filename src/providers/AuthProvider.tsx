@@ -45,7 +45,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setToken(localStorage.getItem('token') || null);
     }
 
-    if (location.pathname === '/login' || location.pathname === '/register') {
+    if (location.pathname === '/login' || location.pathname === '/register' || location.pathname === '/collection') {
       if (token) {
         navigate('/');
         setIsLoading(false);
