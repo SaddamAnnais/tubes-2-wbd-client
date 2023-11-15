@@ -3,6 +3,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import { Provider } from './providers';
 import { Login, Register, Protected } from './pages';
 import { Layout } from './layouts';
+import Collection from './pages/collection/page';
 
 const Router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const Router = createBrowserRouter([
       {
         path: '/register',
         element: <Register />,
+      },
+      {
+        path: '/collection',
+        element: <Collection />,
       },
     ],
   },
