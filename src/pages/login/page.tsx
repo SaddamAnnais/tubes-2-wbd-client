@@ -29,7 +29,7 @@ const Login = () => {
                 <Label htmlFor="password" className="text-left">
                   Password
                 </Label>
-                <Input id="password" placeholder="Password" />
+                <Input type="password" id="password" placeholder="Password" />
               </div>
             </div>
           </form>
