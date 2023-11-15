@@ -7,3 +7,10 @@ export type Response<T> = {
   message: string;
   data: T;
 };
+
+export type User = {
+  id: number;
+  username: string;
+  name: string;
+  isAdmin: boolean;
+};

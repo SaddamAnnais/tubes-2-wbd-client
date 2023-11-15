@@ -14,7 +14,7 @@ const Router = createBrowserRouter([
         element: <Layout />,
         children: [
           {
-            path: '/protected',
+            path: '/',
             element: <Protected />,
           },
         ],
