@@ -18,8 +18,15 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 
     if (res.data) {
       setToken(res.data.token);
+      navigate('/');
+    }
+  };
 
-      // TODO: NAVIGATE
+  const register = async (username: string, name: string, password: string) => {
+    const res = await API.register(username, name, password);
+
+    if (res.data) {
+      setToken(res.data.token);
       navigate('/');
     }
   };
@@ -76,7 +83,7 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
     return <Loading />;
   }
 
-  return <authContext.Provider value={{ user, token, login, logout }}>{children}</authContext.Provider>;
+  return <authContext.Provider value={{ user, token, register, login, logout }}>{children}</authContext.Provider>;
 };
 
 export default AuthProvider;
