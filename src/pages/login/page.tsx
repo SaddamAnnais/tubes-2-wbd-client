@@ -8,9 +8,11 @@ import { Button } from '@/components/ui/button';
 
 import { LogIn } from 'lucide-react';
 
+import { Link } from 'react-router-dom';
+
 const Login = () => {
   return (
-    <div className="w-screen h-screen overflow-hidden flex items-center justify-center">
+    <div className="w-full h-screen flex flex-col items-center justify-center p-0">
       <Card className="w-1/3 h -1/2">
         <CardHeader>
           <CardTitle className="text-left">Login</CardTitle>
@@ -40,9 +42,9 @@ const Login = () => {
             <span className="p-1">Login</span>
           </Button>
           <div>
-            <span>Not yet have an acoount? </span>
+            <span>Don't have any account? </span>
             <Button variant="link" className="p-0">
-              Sign Up
+              <Link to="/register">Sign Up</Link>
             </Button>
           </div>
         </CardFooter>

@@ -3,9 +3,11 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import Router from './App.tsx';
 import { RouterProvider } from 'react-router-dom';
+import Navbar from './components/Navbar.tsx';
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
+    <Navbar />
     <RouterProvider router={Router} />
   </React.StrictMode>,
 );

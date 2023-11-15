@@ -8,13 +8,15 @@ import { Button } from '@/components/ui/button';
 
 import { LogIn } from 'lucide-react';
 
+import { Link } from 'react-router-dom';
+
 const Register = () => {
   return (
-    <div className="w-screen h-screen overflow-hidden flex items-center justify-center">
+    <div className="w-full h-screen overflow-hidden flex items-center justify-center">
       <Card className="w-1/3 h -1/2">
         <CardHeader>
-          <CardTitle className="text-left">Login</CardTitle>
-          <CardDescription className="text-left">Log into your Premium Creator Account</CardDescription>
+          <CardTitle className="text-left">Register</CardTitle>
+          <CardDescription className="text-left">Register </CardDescription>
         </CardHeader>
         <CardContent>
           <form>
@@ -43,12 +45,12 @@ const Register = () => {
         <CardFooter className="flex flex-col">
           <Button className="w-full flex">
             <LogIn />
-            <span className="p-1">Login</span>
+            <span className="p-1">Register</span>
           </Button>
           <div>
-            <span>Not yet have an acoount? </span>
+            <span>Already have an acoount? </span>
             <Button variant="link" className="p-0">
-              Sign Up
+              <Link to="/login">Sign In</Link>
             </Button>
           </div>
         </CardFooter>
