@@ -6,7 +6,8 @@ services:
     ports:
       - 5173:5173
     volumes:
-      - '.:/app'
+      - './src:/usr/src/app/src'
+      - './public:/usr/src/app/public'
     stdin_open: true
     tty: true
     environment:
