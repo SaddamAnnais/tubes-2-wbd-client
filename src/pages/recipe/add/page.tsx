@@ -4,9 +4,15 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 
+import { RecipeData } from '@/lib/types';
+
+import { useAPI } from '@/contexts';
+
 import { useState } from 'react';
 
 const RecipeAdd = () => {
+  const { api } = useAPI();
+
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -22,7 +28,7 @@ const RecipeAdd = () => {
       [e.target.name]: e.target.value,
     });
 
-    console.log(formData);
+    // console.log(formData);
   };
 
   const onChangeRadio = (name: string, value: string) => {
@@ -31,11 +37,25 @@ const RecipeAdd = () => {
       [name]: value,
     });
 
-    console.log(formData);
+    // console.log(formData);
   };
 
+  const onChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.files![0]
+    })
+  }
+
+  const createRecipeHandler = async (formData: RecipeData) => {
+    const res = await api.addRecipe(formData)
+
+    // do something about the response
+    //    and redirect maybe?
+  }
+
   return (
-    <form className="w-full h-[80vh] grid grid-cols-2 pt-28">
+    <div className="w-full h-[80vh] grid grid-cols-2 pt-28">
       <div className="grid w-full items-center gap-4 px-24">
         <div className="flex flex-col space-y-1.5">
           <Label htmlFor="title" className="text-left">
@@ -152,19 +172,30 @@ const RecipeAdd = () => {
           <Label htmlFor="video" className="text-left">
             Video
           </Label>
-          <Input value={formData.video} onChange={onChangeInput} name="video" type="file" accept="video/mp4" />
+          <Input onChange={onChangeFile} name="video" type="file" accept="video/mp4" />
         </div>
         <div className="flex flex-col space-y-1.5">
           <Label htmlFor="image" className="text-left">
             Image
           </Label>
-          <Input value={formData.image} onChange={onChangeInput} name="image" type="file" accept="image/*" />
+          <Input onChange={onChangeFile} name="image" type="file" accept="image/*" />
         </div>
         <div className="flex flex-col space-y-1.5">
-          <Button>Create</Button>
+          <Button onClick={() => {
+            createRecipeHandler({
+             title: formData.title,
+             description: formData.description,
+             diff: formData.diff,
+             tag: formData.tag,
+             video: formData.video,
+             image: formData.image
+              })
+            }}>
+            Create
+          </Button>
         </div>
       </div>
-    </form>
+    </div>
   );
 };
 
