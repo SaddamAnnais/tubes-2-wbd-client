@@ -9,6 +9,7 @@ const Router = createBrowserRouter([
   {
     path: '/',
     element: <Provider />,
+    errorElement: <Provider />, // force enforcement of authprovider
     children: [
       {
         path: '/',
