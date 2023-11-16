@@ -1,5 +1,15 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 
+import { 
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+
 import { Label } from '@/components/ui/label';
 
 import { Input } from '@/components/ui/input';
@@ -14,69 +24,114 @@ import { useState } from 'react';
 
 import { useAuth } from '@/contexts';
 
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useForm } from "react-hook-form"
+import * as z from "zod"
+ 
+const formSchema = z.object({
+  username: z.string().min(3, {
+    message: "Username must be at least 3 characters.",
+  }),
+  name: z.string().min(3, {
+    message: "Name must be at least 3 characters.",
+  }),
+  password: z.string().min(8, {
+    message: "Password must be at least 8 characters.",
+  })
+})
+
 const Register = () => {
   const { register } = useAuth();
 
-  const [formData, setFormData] = useState({
-    username: '',
-    name: '',
-    password: '',
-  });
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      username: "",
+      name: "",
+      password: "",
+    },
+  })
 
-  const OnChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  function onSubmit(values: z.infer<typeof formSchema>) {
+    console.log(values)
+    register(values.username, values.name, values.password);
+  }
 
   return (
     <div className="w-full h-screen overflow-hidden flex items-center justify-center">
       <Card className="w-1/3 h -1/2">
+      <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)}>
         <CardHeader>
           <CardTitle className="text-left">Register</CardTitle>
           <CardDescription className="text-left">Register </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
-            <div className="grid w-full items-center gap-4">
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="username" className="text-left">
-                  Username
-                </Label>
-                <Input
-                  value={formData.username}
-                  onChange={OnChangeInput}
-                  name="username"
-                  placeholder="ex: JohnDoe123"
-                />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="name" className="text-left">
-                  Name
-                </Label>
-                <Input value={formData.name} onChange={OnChangeInput} name="name" placeholder="ex: John Doe" />
-              </div>
-              <div className="flex flex-col space-y-1.5">
-                <Label htmlFor="password" className="text-left">
-                  Password
-                </Label>
-                <Input
-                  value={formData.password}
-                  onChange={OnChangeInput}
-                  type="password"
-                  name="password"
-                  placeholder="Password"
-                />
-              </div>
-            </div>
-          </form>
+        <FormField
+                control={form.control}
+                name='username'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className='text-left'>
+                      Username
+                    </FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="ex: JohnDoe123"
+                        {...field}
+                      />
+                    </FormControl>
+                    {/* <FormDescription>
+                      username pengguna
+                    </FormDescription> */}
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            <FormField
+                control={form.control}
+                name='name'
+                render={({ field }) => (
+                  <FormItem>
+                   <FormLabel>
+                     Name
+                   </FormLabel>
+                   <FormControl>
+                     <Input
+                      placeholder="ex: John Doe"
+                      {...field}
+                     />
+                   </FormControl>
+                   <FormMessage />
+                 </FormItem>
+                )}
+              />
+          <FormField
+                control={form.control}
+                name='password'
+                render={({ field }) => (
+                  <FormItem>
+                   <FormLabel>
+                     Password
+                   </FormLabel>
+                   <FormControl>
+                     <Input
+                      //  value={foronChangeInput}
+                      type="password"
+                      placeholder="Password"
+                      {...field}
+                     />
+                   </FormControl>
+                   {/* <FormDescription>
+                     Password pengguna
+                   </FormDescription> */}
+                   <FormMessage />
+                 </FormItem>
+                )}
+              />
         </CardContent>
         <CardFooter className="flex flex-col">
           <Button
-            onClick={() => {
-              register(formData.username, formData.name, formData.password);
-            }}
             className="w-full flex"
           >
             <LogIn />
@@ -89,6 +144,8 @@ const Register = () => {
             </Button>
           </div>
         </CardFooter>
+        </form>
+        </Form>
       </Card>
     </div>
   );
