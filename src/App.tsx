@@ -5,6 +5,7 @@ import { Login, Register, Protected, Subscription } from './pages';
 import { Layout } from './layouts';
 import Collection from './pages/collection/page';
 import CollectionId from './pages/collection/[id]/page';
+import RecipeAdd from './pages/recipe/add/page';
 
 const Router = createBrowserRouter([
   {
@@ -41,6 +42,10 @@ const Router = createBrowserRouter([
       {
         path: '/subscription',
         element: <Subscription />,
+      },
+      {
+        path: '/recipe/add',
+        element: <RecipeAdd />
       },
     ],
   },
