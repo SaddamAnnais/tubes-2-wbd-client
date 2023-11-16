@@ -13,7 +13,7 @@ const Navbar = () => {
       <div className="w-full h-full py-8 px-16 flex flex-row justify-between">
         <Logo />
         { 
-        token && 
+          token && 
           <div className='w-1/4 h-full flex  justify-between items-center'>
             <Button variant="outline" className='hover:text-white hover:bg-primary transition-all duration-300'>
               <Link to="/recipe/add">New Recipe</Link>

@@ -1,7 +1,7 @@
 import './App.css';
 import { createBrowserRouter } from 'react-router-dom';
 import { Provider } from './providers';
-import { Login, Register, Protected, Subscription } from './pages';
+import { Login, Register, Protected, Subscription, RecipeId } from './pages';
 import { Layout } from './layouts';
 import Collection from './pages/collection/page';
 import CollectionId from './pages/collection/[id]/page';
@@ -45,7 +45,11 @@ const Router = createBrowserRouter([
       },
       {
         path: '/recipe/add',
-        element: <RecipeAdd />
+        element: <RecipeAdd />,
+      },
+      {
+        path: '/recipe/:id',
+        element: <RecipeId />,
       },
     ],
   },

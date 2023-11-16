@@ -58,6 +58,7 @@ const Subscription = () => {
       Reject
     </Button>
   );
+
   return (
     <main className="w-full h-full pt-32 py-8 px-20">
       <header className="flex flex-row justify-between mb-8">
