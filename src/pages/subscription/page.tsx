@@ -1,6 +1,6 @@
+import ConfirmDialog from '@/components/ConfirmDialog';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
-// import { useState } from 'react';
 import { Check, X } from 'lucide-react';
 
 interface SubscriptionData {
@@ -11,7 +11,6 @@ interface SubscriptionData {
 }
 
 const Subscription = () => {
-  // const [selectedIdx, setSelectedIdx] = useState(0);
   const subs: SubscriptionData[] = [
     {
       creatorId: 1,
@@ -39,14 +38,26 @@ const Subscription = () => {
     },
   ];
 
-  // const handleApprove = (idx: number) => {
-  //   setSelectedIdx(idx);
-  // };
+  const onReject = (idx: number) => {
+    console.log('Reject: ' + idx);
+  };
+  const openRejectModal = (
+    <Button variant="outline">
+      <X size={18} strokeWidth={3} className="mr-2" />
+      Reject
+    </Button>
+  );
 
-  // const openRejectModal = (idx: number) => {
-  //   setSelectedIdx(idx);
-  // };
+  const onApprove = (idx: number) => {
+    console.log('Approve: ' + idx);
+  };
 
+  const openApproveModal = (
+    <Button>
+      <Check size={18} strokeWidth={3} className="mr-2" />
+      Reject
+    </Button>
+  );
   return (
     <main className="w-full h-full pt-32 py-8 px-20">
       <header className="flex flex-row justify-between mb-8">
@@ -68,14 +79,22 @@ const Subscription = () => {
                   <TableCell className="text-left">{el.creatorName}</TableCell>
                   <TableCell className="text-left">{el.requesterName}</TableCell>
                   <TableCell className="flex flex-row gap-4">
-                    <Button>
-                      <Check size={18} strokeWidth={3} className="mr-2" />
-                      Approve
-                    </Button>
-                    <Button variant="outline">
-                      <X size={18} strokeWidth={3} className="mr-2" />
-                      Reject
-                    </Button>
+                    <ConfirmDialog
+                      title="Approve Subscription"
+                      desc="Are you sure? This action cannot be undone."
+                      onConfirm={() => {
+                        onApprove(i);
+                      }}
+                      openButton={openApproveModal}
+                    />
+                    <ConfirmDialog
+                      title="Reject Subscription"
+                      desc="Are you sure? This action cannot be undone."
+                      onConfirm={() => {
+                        onReject(i);
+                      }}
+                      openButton={openRejectModal}
+                    />
                   </TableCell>
                 </TableRow>
               );
