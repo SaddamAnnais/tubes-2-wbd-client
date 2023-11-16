@@ -9,4 +9,6 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
+  // envPrefix: ""       // default: "VITE"
+  // was trying to remove the prefix, but VITE wont just allow it.
 });

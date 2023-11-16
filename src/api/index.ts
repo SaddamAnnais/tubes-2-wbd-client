@@ -4,7 +4,7 @@ import registerAPI from './register';
 import selfAPI from './self';
 
 const APIInstance = axios.create();
-APIInstance.defaults.baseURL = import.meta.env.REST_URL;
+APIInstance.defaults.baseURL = import.meta.env.VITE_REST_URL;
 
 const API = {
   login: loginAPI,
