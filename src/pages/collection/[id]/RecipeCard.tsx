@@ -1,17 +1,16 @@
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { NavLink } from 'react-router-dom';
 
-interface CollectionCardProps {
-  title: string;
-  total_recipe: number;
+interface RecipeCardProps {
+  recipe_id : number;
+  recipe_name: string;
   created_at: Date;
-  collection_id: number;
   cover: string;
 }
 
-const CollectionCard: React.FC<CollectionCardProps> = ({ title, total_recipe, created_at, collection_id, cover }) => {
+const RecipeCard: React.FC<RecipeCardProps> = ({ recipe_id, recipe_name, created_at, cover }) => {
   return (
-    <NavLink to={'./' + collection_id}>
+    <NavLink to={'/recipe/' + recipe_id}>
       <Card className="w-full hover:bg-secondary">
         <CardHeader className="w-full h-40 m-0 p-3 mb-2">
           <img
@@ -21,9 +20,8 @@ const CollectionCard: React.FC<CollectionCardProps> = ({ title, total_recipe, cr
           />
         </CardHeader>
         <CardContent>
-          <CardTitle className="text-left mb-2">{title}</CardTitle>
+          <CardTitle className="text-left mb-2">{recipe_name}</CardTitle>
           <CardDescription className="flex flex-row justify-between">
-            <p>{total_recipe ? `${total_recipe} Videos` : 'No Video'} </p>
             <p>{created_at.toLocaleDateString()}</p>
           </CardDescription>
         </CardContent>
@@ -32,4 +30,4 @@ const CollectionCard: React.FC<CollectionCardProps> = ({ title, total_recipe, cr
   );
 };
 
-export default CollectionCard;
+export default RecipeCard;

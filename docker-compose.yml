@@ -8,6 +8,7 @@ services:
     volumes:
       - './src:/usr/src/app/src'
       - './public:/usr/src/app/public'
+      - './package.json:/usr/src/app/package.json'
     stdin_open: true
     tty: true
     environment:
