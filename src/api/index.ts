@@ -18,7 +18,7 @@ for (const key in API) {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   API[key as keyof typeof API] = async (...args: any[]) => {
     try {
-      const res = func(...args);
+      const res = await func(...args);
 
       if (!res.status) {
         throw new Error(res.message);

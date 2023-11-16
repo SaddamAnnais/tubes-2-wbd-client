@@ -1,15 +1,42 @@
 import { Button } from '@/components/ui/button';
 import { Plus } from 'lucide-react';
 import CollectionCard from './CollectionCard';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import AddCollectionModals from './AddCollectionModals';
+import axios from 'axios';
+
+interface Collection {
+  id: number;
+  title: string;
+  created_at: string;
+  total_recipe: number;
+  cover: string;
+  user_id: number;
+  creator_name: string;
+}
 
 const Collection = () => {
   const [isModalsOpen, setIsModalsOpen] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
+  const [componentArray, setComponentArray] = useState<Collection[]>([]);
 
-  // TODO: FETCH HERE
-  // TO BE DELETED
-  const componentArray = new Array(12).fill(null);
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+
+    axios
+      .get('http://localhost:3000/collection', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(({ data }) => {
+        const arrCollection: Collection[] = data.data;
+        setComponentArray(arrCollection);
+      })
+      .catch((error) => {
+        setErrorMsg('Error: ' + error);
+      });
+  }, [isModalsOpen]);
 
   return (
     <main className={`w-full h-full pt-28 py-8 px-20 ${isModalsOpen ? 'fixed' : ''} `}>
@@ -25,22 +52,23 @@ const Collection = () => {
           <Plus className="mr-2" /> New
         </Button>
       </header>
+      {errorMsg && <p className='text-red-700 mt-20'>{errorMsg}</p>}
       <div className="w-full h-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {/* iterate  */}
-        {componentArray.map((_, index) => {
-          return (
-            <CollectionCard
-              key={index}
-              title="test title"
-              total_recipe={10}
-              created_at={new Date()}
-              collection_id={1}
-              cover={
-                'https://www.fourpaws.com/-/media/Project/OneWeb/FourPaws/Images/articles/cat-corner/small-cat-breeds/munchkin-cropped.jpg'
-              }
-            />
-          );
-        })}
+        
+        {!errorMsg &&
+          componentArray.length != 0 &&
+          componentArray.map((collection) => {
+            return (
+              <CollectionCard
+                key={collection.id}
+                title={collection.title}
+                total_recipe={collection.total_recipe}
+                created_at={new Date()}
+                collection_id={collection.id}
+                cover={collection.cover}
+              />
+            );
+          })}
       </div>
     </main>
   );

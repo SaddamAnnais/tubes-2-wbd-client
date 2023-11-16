@@ -4,6 +4,7 @@ import { apiContext } from '@/contexts';
 const APIProvider = ({ children }: { children: React.ReactNode }) => {
   const setToken = (token: string | null) => {
     if (token) {
+      localStorage.setItem('token', token);
       APIInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
     } else {
       delete APIInstance.defaults.headers.common['Authorization'];
