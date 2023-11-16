@@ -1,7 +1,8 @@
 import { Button } from '@/components/ui/button';
-import { Plus, Pencil } from 'lucide-react';
+import { Pencil } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { Link } from 'react-router-dom';
+import AddToCollection from './AddToCollection';
 
 const RecipeId = () => {
   const data = {
@@ -21,10 +22,7 @@ const RecipeId = () => {
         <p className="text-md">{'Posted on ' + data.created_at.toLocaleString()}</p>
       </header>
       <div className="w-full h-full flex flex-row justify-between mb-7">
-        <Button>
-          <Plus size={18} strokeWidth={3} className="mr-2" />
-          Add to Collection
-        </Button>
+        <AddToCollection />
         <Link to={`/edit/${data.id}`}>
           <Button className="rounded-full aspect-square p-1">
             <Pencil size={18} strokeWidth={3} />
