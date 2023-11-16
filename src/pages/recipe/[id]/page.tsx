@@ -16,7 +16,7 @@ const RecipeId = () => {
   };
 
   return (
-    <main className="w-full h-full pt-32 py-8 px-20 justify-start">
+    <main className="w-full h-full pt-32 py-8 px-10 sm:px-20 justify-start">
       <header className="flex flex-col gap-4 items-start mb-7">
         <h1 className="font-bold text-5xl">{data.title}</h1>
         <p className="text-md">{'Posted on ' + data.created_at.toLocaleString()}</p>
