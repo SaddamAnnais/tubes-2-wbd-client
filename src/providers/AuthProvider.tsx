@@ -39,6 +39,9 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   };
 
   useEffect(() => {
+    // FOR DEBUG PURPOSES
+    console.log('Context token ' + token);
+    console.log('Path changed to ' + location.pathname);
     if (token) {
       localStorage.setItem('token', token);
     } else {

@@ -1,8 +1,12 @@
 import { API, APIInstance } from '@/api';
 import { apiContext } from '@/contexts';
+import { useState } from 'react';
 
 const APIProvider = ({ children }: { children: React.ReactNode }) => {
+  const [currToken, setCurrToken] = useState<string | null>(null);
+
   const setToken = (token: string | null) => {
+    setCurrToken(token);
     if (token) {
       localStorage.setItem('token', token);
       APIInstance.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -15,7 +19,7 @@ const APIProvider = ({ children }: { children: React.ReactNode }) => {
     <apiContext.Provider
       value={{
         api: API,
-        token: APIInstance.defaults.headers.common['Authorization']?.toString().slice(7) || null,
+        token: currToken,
         setToken,
       }}
     >

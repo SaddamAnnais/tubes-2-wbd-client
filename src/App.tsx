@@ -1,10 +1,11 @@
 import './App.css';
 import { createBrowserRouter } from 'react-router-dom';
 import { Provider } from './providers';
-import { Login, Register, Protected } from './pages';
+import { Login, Register, Protected, Subscription } from './pages';
 import { Layout } from './layouts';
 import Collection from './pages/collection/page';
 import CollectionId from './pages/collection/[id]/page';
+import RecipeAdd from './pages/recipe/add/page';
 
 const Router = createBrowserRouter([
   {
@@ -37,6 +38,14 @@ const Router = createBrowserRouter([
       {
         path: '/collection/:id',
         element: <CollectionId />,
+      },
+      {
+        path: '/subscription',
+        element: <Subscription />,
+      },
+      {
+        path: '/recipe/add',
+        element: <RecipeAdd />
       },
     ],
   },
