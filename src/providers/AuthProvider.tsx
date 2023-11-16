@@ -54,7 +54,8 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       setIsLoading(false);
     } else {
       if (!token) {
-        navigate('/login');
+        // navigate('/login');
+        setIsLoading(false);
         return;
       }
 

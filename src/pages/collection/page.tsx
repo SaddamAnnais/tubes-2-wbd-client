@@ -7,6 +7,7 @@ import AddCollectionModals from './AddCollectionModals';
 const Collection = () => {
   const [isModalsOpen, setIsModalsOpen] = useState(false);
 
+  // TODO: FETCH HERE
   // TO BE DELETED
   const componentArray = new Array(12).fill(null);
 
@@ -25,10 +26,20 @@ const Collection = () => {
         </Button>
       </header>
       <div className="w-full h-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-
         {/* iterate  */}
         {componentArray.map((_, index) => {
-          return <CollectionCard key={index} title="test title" total_recipe={10} created_at={new Date()} collection_id={1} />;
+          return (
+            <CollectionCard
+              key={index}
+              title="test title"
+              total_recipe={10}
+              created_at={new Date()}
+              collection_id={1}
+              cover={
+                'https://www.fourpaws.com/-/media/Project/OneWeb/FourPaws/Images/articles/cat-corner/small-cat-breeds/munchkin-cropped.jpg'
+              }
+            />
+          );
         })}
       </div>
     </main>
