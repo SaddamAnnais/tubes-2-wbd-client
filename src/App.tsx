@@ -1,30 +1,24 @@
 import './App.css';
 import { createBrowserRouter } from 'react-router-dom';
 import { Provider } from './providers';
-import { Login, Register, Protected, Subscription, RecipeId } from './pages';
-import { Layout } from './layouts';
-import Collection from './pages/collection/page';
-import CollectionId from './pages/collection/[id]/page';
-import RecipeAdd from './pages/recipe/add/page';
-import Recipe from './pages/recipe/page';
-import RecipeEdit from './pages/recipe/edit/[id]/page';
+import {
+  Login,
+  Register,
+  Subscription,
+  RecipeId,
+  Collection,
+  CollectionId,
+  RecipeAdd,
+  Recipe,
+  RecipeEdit,
+} from './pages';
 
 const Router = createBrowserRouter([
   {
     path: '/',
     element: <Provider />,
-    errorElement: <Provider />, // force enforcement of authprovider
+    errorElement: <Provider />,
     children: [
-      {
-        path: '/',
-        element: <Layout />,
-        children: [
-          {
-            path: '/',
-            element: <Protected />,
-          },
-        ],
-      },
       {
         path: '/login',
         element: <Login />,
@@ -56,10 +50,18 @@ const Router = createBrowserRouter([
       {
         path: '/recipe/:id',
         element: <RecipeId />,
-      }, 
+      },
       {
         path: '/recipe/edit/:id',
         element: <RecipeEdit />,
+      },
+      {
+        path: '/recipe/edit/:id',
+        element: <RecipeEdit />,
+      },
+      {
+        path: '*',
+        element: <div>Not Found</div>,
       },
     ],
   },
