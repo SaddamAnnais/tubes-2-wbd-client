@@ -36,7 +36,9 @@ import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import Collection from '../../collection/page';
+import { useEffect, useState } from 'react';
+import { useAPI } from '@/contexts';
+import { useParams } from 'react-router-dom';
 
 const FormSchema = z.object({
   id: z.string({
@@ -50,28 +52,32 @@ interface Collection {
 }
 
 export function SelectForm() {
+  const { api } = useAPI();
+  const { id } = useParams();
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data);
-  }
+  const onSubmit = async (data: z.infer<typeof FormSchema>) => {
+    await api.addToCollection(data.id, id!);
+  };
 
-  const collections: Collection[] = [
-    {
-      id: 1,
-      title: 'Hello',
-    },
-    {
-      id: 2,
-      title: 'Hai',
-    },
-    {
-      id: 3,
-      title: 'Ho',
-    },
-  ];
+  const [collections, setCollections] = useState<Collection[]>();
+
+  const fetch = async () => {
+    const result = await api.getCollections();
+    if (!result.data) {
+      return;
+    }
+
+    setCollections(result.data);
+  };
+
+  useEffect(() => {
+    fetch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Form {...form}>
@@ -90,13 +96,14 @@ export function SelectForm() {
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
-                    {collections.map((collection, idx) => {
-                      return (
-                        <SelectItem value={`${collection.id}`} key={idx}>
-                          {collection.title}
-                        </SelectItem>
-                      );
-                    })}
+                    {collections &&
+                      collections.map((collection, idx) => {
+                        return (
+                          <SelectItem value={`${collection.id}`} key={idx}>
+                            {collection.title}
+                          </SelectItem>
+                        );
+                      })}
                   </SelectContent>
                 </Select>
                 <FormMessage />

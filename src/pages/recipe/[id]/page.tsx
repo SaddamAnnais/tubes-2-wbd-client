@@ -16,6 +16,7 @@ interface Recipe {
 }
 
 const RecipeId = () => {
+  console.log('hai');
   const { id } = useParams();
   const { api } = useAPI();
   const [recipe, setRecipe] = useState<Recipe | null>(null);
