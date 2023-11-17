@@ -20,7 +20,7 @@ const API = {
   createCollection: createCollectionAPI,
   getCollectionDetails: getCollectionDetailsAPI,
   getCollectionRecipes: getCollectionRecipesAPI,
-  addRecipe: addRecipeAPI, 
+  addRecipe: addRecipeAPI,
 };
 
 for (const key in API) {
@@ -33,7 +33,7 @@ for (const key in API) {
 
       // NOTE: later check the result
       console.log(res, res.status);
-      
+
       if (!res.status) {
         throw new Error(res.message);
       }

@@ -1,18 +1,18 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 
-import { 
+import {
   Form,
   FormControl,
-  FormDescription,
+  // FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
 
-import { Label } from '@/components/ui/label';
+// import { Label } from '@/components/ui/label';
 
 import { Input } from '@/components/ui/input';
 
@@ -24,18 +24,18 @@ import { Link } from 'react-router-dom';
 
 import { useAuth } from '@/contexts';
 
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import * as z from "zod"
- 
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
+import * as z from 'zod';
+
 const formSchema = z.object({
   username: z.string().min(3, {
-    message: "Username must be at least 3 characters.",
+    message: 'Username must be at least 3 characters.',
   }),
   password: z.string().min(8, {
-    message: "Password must be at least 8 characters.",
-  })
-})
+    message: 'Password must be at least 8 characters.',
+  }),
+});
 
 const Login = () => {
   const { login } = useAuth();
@@ -43,13 +43,13 @@ const Login = () => {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      username: "",
-      password: "",
+      username: '',
+      password: '',
     },
-  })
+  });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values)
+    console.log(values);
     login(values.username, values.password);
   }
 
@@ -63,58 +63,51 @@ const Login = () => {
               <CardDescription className="text-left">Log into your Premium Creator Account</CardDescription>
             </CardHeader>
 
-            <CardContent className='grid w-full items-center gap-4'>
+            <CardContent className="grid w-full items-center gap-4">
               <FormField
                 control={form.control}
-                name='username'
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel className='text-left'>
-                      Username
-                    </FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="ex: JohnDoe123"
-                        {...field}
-                      />
-                    </FormControl>
-                    {/* <FormDescription>
+                name="username"
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormLabel className="text-left">Username</FormLabel>
+                      <FormControl>
+                        <Input placeholder="ex: JohnDoe123" {...field} />
+                      </FormControl>
+                      {/* <FormDescription>
                       username pengguna
                     </FormDescription> */}
-                    <FormMessage />
-                  </FormItem>
-                )}
-                
-
+                      <FormMessage />
+                    </FormItem>
+                  );
+                }}
               />
               <FormField
                 control={form.control}
-                name='password'
-                render={({ field }) => (
-                  <FormItem>
-                   <FormLabel>
-                     Password
-                   </FormLabel>
-                   <FormControl>
-                     <Input
-                      //  value={foronChangeInput}
-                      type="password"
-                      placeholder="Password"
-                      {...field}
-                     />
-                   </FormControl>
-                   {/* <FormDescription>
+                name="password"
+                render={({ field }) => {
+                  return (
+                    <FormItem>
+                      <FormLabel>Password</FormLabel>
+                      <FormControl>
+                        <Input
+                          //  value={foronChangeInput}
+                          type="password"
+                          placeholder="Password"
+                          {...field}
+                        />
+                      </FormControl>
+                      {/* <FormDescription>
                      Password pengguna
                    </FormDescription> */}
-                   <FormMessage />
-                 </FormItem>
-                )}
+                      <FormMessage />
+                    </FormItem>
+                  );
+                }}
               />
             </CardContent>
             <CardFooter className="flex flex-col">
-              <Button type='submit'
-                className="w-full flex"
-              >
+              <Button type="submit" className="w-full flex">
                 <LogIn />
                 <span className="p-1">Login</span>
               </Button>
