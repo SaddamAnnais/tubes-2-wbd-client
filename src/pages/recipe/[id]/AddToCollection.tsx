@@ -79,28 +79,30 @@ export function SelectForm() {
         <FormField
           control={form.control}
           name="id"
-          render={({ field }) => {return (
-            <FormItem>
-              <FormLabel>Collection</FormLabel>
-              <Select onValueChange={field.onChange} defaultValue={`${field.value}`}>
-                <FormControl>
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select a collection" />
-                  </SelectTrigger>
-                </FormControl>
-                <SelectContent>
-                  {collections.map((collection, idx) => {
-                    return (
-                      <SelectItem value={`${collection.id}`} key={idx}>
-                        {collection.title}
-                      </SelectItem>
-                    );
-                  })}
-                </SelectContent>
-              </Select>
-              <FormMessage />
-            </FormItem>
-          );}}
+          render={({ field }) => {
+            return (
+              <FormItem>
+                <FormLabel>Collection</FormLabel>
+                <Select onValueChange={field.onChange} defaultValue={`${field.value}`}>
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select a collection" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    {collections.map((collection, idx) => {
+                      return (
+                        <SelectItem value={`${collection.id}`} key={idx}>
+                          {collection.title}
+                        </SelectItem>
+                      );
+                    })}
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            );
+          }}
         />
         <div className="flex justify-end items-end">
           <Button type="submit">Add to Collection</Button>

@@ -18,15 +18,14 @@ const Navbar = () => {
             <Button variant="outline" className='hover:text-white hover:bg-primary transition-all duration-300'>
               <Link to="/recipe/add">New Recipe</Link>
             </Button>
-            <Button variant="link" className='hover:text-neutral-600 transition-all'>
+            <Button variant="link" className="hover:text-neutral-600 transition-all">
               <Link to="/recipe">My Recipes</Link>
             </Button>
-            <Button variant="link" className='hover:text-neutral-600 transition-all'>
+            <Button variant="link" className="hover:text-neutral-600 transition-all">
               <Link to="/collection">My Collections</Link>
             </Button>
-          </div> 
+          </div>
         }
-        
       </div>
       <Separator className="w-screen" />
     </div>

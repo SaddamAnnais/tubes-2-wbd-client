@@ -2,8 +2,10 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { useAPI } from '@/contexts';
+// import axios from 'axios';
 import { X } from 'lucide-react';
-import { MouseEvent, useRef } from 'react';
+import { MouseEvent, useRef, useState } from 'react';
 
 interface AddCollectionModalsProps {
   isModalsOpen: boolean;
@@ -12,14 +14,24 @@ interface AddCollectionModalsProps {
 
 const AddCollectionModals: React.FC<AddCollectionModalsProps> = ({ isModalsOpen, setIsModalsOpen }) => {
   const newCollectionNameRef = useRef<HTMLInputElement>(null);
+  const [errorMsg, setErrorMsg] = useState('');
+  const { api } = useAPI();
 
-  const createCollectionHandler = () => {
-    // TODO: handler for creating a new collection
-    const inputValue = newCollectionNameRef.current?.value;
-    console.log('Input value:', inputValue);
-    setIsModalsOpen(false);
+  const createCollectionHandler = async () => {
     if (newCollectionNameRef.current) {
-      newCollectionNameRef.current.value = '';
+      if (newCollectionNameRef.current.value.trim().length != 0) {
+        const inputValue = newCollectionNameRef.current.value;
+        await api
+          .createCollection(inputValue)
+          .then(() => {
+            if (newCollectionNameRef.current) newCollectionNameRef.current.value = '';
+            setErrorMsg('');
+            setIsModalsOpen(false);
+          })
+          .catch((error) => {
+            setErrorMsg('Error: ' + error);
+          });
+      }
     }
   };
 
@@ -59,6 +71,7 @@ const AddCollectionModals: React.FC<AddCollectionModalsProps> = ({ isModalsOpen,
             Collection Title
           </Label>
           <Input id="collection-name" className="mt-2 text-base" ref={newCollectionNameRef} />
+          {errorMsg && <p className="text-red-700 text-lg font-medium mt-2">{errorMsg}</p>}
         </CardContent>
         <CardFooter className="flex flex-row justify-end gap-3 py-4">
           <Button

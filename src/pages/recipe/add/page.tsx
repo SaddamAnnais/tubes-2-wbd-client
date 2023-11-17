@@ -9,15 +9,17 @@ import { RecipeData } from '@/lib/types';
 import { useAPI } from '@/contexts';
 
 import { useState } from 'react';
+import { useNavigate } from 'react-router';
 
 const RecipeAdd = () => {
+  const navigate = useNavigate();
   const { api } = useAPI();
 
   const [formData, setFormData] = useState({
     title: '',
     description: '',
-    diff: '',
-    tag: '',
+    diff: 'easy',
+    tag: 'appetizer',
     video: '',
     image: '',
   });
@@ -43,16 +45,21 @@ const RecipeAdd = () => {
   const onChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.files![0]
-    })
-  }
+      [e.target.name]: e.target.files![0],
+    });
+  };
 
   const createRecipeHandler = async (formData: RecipeData) => {
-    const res = await api.addRecipe(formData)
-
-    // do something about the response
-    //    and redirect maybe?
-  }
+    const res = await api
+      .addRecipe(formData)
+      .then(() => {
+        navigate('/recipe');
+      })
+      .catch((error) => {
+        console.error('Error: ' + error);
+      });
+    console.log(res);
+  };
 
   return (
     <div className="w-full h-[80vh] grid grid-cols-2 pt-28">
@@ -181,16 +188,18 @@ const RecipeAdd = () => {
           <Input onChange={onChangeFile} name="image" type="file" accept="image/*" />
         </div>
         <div className="flex flex-col space-y-1.5">
-          <Button onClick={() => {
-            createRecipeHandler({
-             title: formData.title,
-             description: formData.description,
-             diff: formData.diff,
-             tag: formData.tag,
-             video: formData.video,
-             image: formData.image
-              })
-            }}>
+          <Button
+            onClick={() => {
+              createRecipeHandler({
+                title: formData.title,
+                description: formData.description,
+                diff: formData.diff,
+                tag: formData.tag,
+                video: formData.video,
+                image: formData.image,
+              });
+            }}
+          >
             Create
           </Button>
         </div>
