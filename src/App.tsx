@@ -7,6 +7,7 @@ import Collection from './pages/collection/page';
 import CollectionId from './pages/collection/[id]/page';
 import RecipeAdd from './pages/recipe/add/page';
 import Recipe from './pages/recipe/page';
+import RecipeEdit from './pages/recipe/edit/[id]/page';
 
 const Router = createBrowserRouter([
   {
@@ -55,6 +56,10 @@ const Router = createBrowserRouter([
       {
         path: '/recipe/:id',
         element: <RecipeId />,
+      }, 
+      {
+        path: '/recipe/edit/:id',
+        element: <RecipeEdit />,
       },
     ],
   },

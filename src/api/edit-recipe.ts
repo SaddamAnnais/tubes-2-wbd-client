@@ -1,8 +1,8 @@
 import { APIInstance } from '.';
 
-import { RecipeData } from '@/lib/types';
+import { RecipeData, Response } from '@/lib/types';
 
-const addRecipeAPI = async (recipe: RecipeData, video: File, image: File) => {
+const editRecipeAPI = async (id: string, recipe: RecipeData, video: File, image: File) => {
   const formData = new FormData();
 
   // working
@@ -13,8 +13,8 @@ const addRecipeAPI = async (recipe: RecipeData, video: File, image: File) => {
   formData.append('files', video);
   formData.append('files', image);
 
-  const res = await APIInstance.post('/recipe', formData);
+  const res = await APIInstance.put('/recipe/' + id, formData);
   return res.data;
 };
 
-export default addRecipeAPI;
+export default editRecipeAPI;

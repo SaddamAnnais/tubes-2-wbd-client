@@ -11,6 +11,7 @@ import addRecipeAPI from './add-recipe';
 import getRecipeAPI from './get-recipe';
 import getRecipeVideoAPI from './get-recipe-video';
 import addToCollectionAPI from './add-to-collection';
+import editRecipeAPI from './edit-recipe';
 
 const APIInstance = axios.create();
 APIInstance.defaults.baseURL = import.meta.env.VITE_REST_URL;
@@ -27,6 +28,7 @@ const API = {
   getRecipe: getRecipeAPI,
   getRecipeVideo: getRecipeVideoAPI,
   addToCollection: addToCollectionAPI,
+  editRecipe: editRecipeAPI,
 };
 
 for (const key in API) {
