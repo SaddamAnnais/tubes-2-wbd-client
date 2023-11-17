@@ -22,7 +22,7 @@ const API = {
   getCollectionDetails: getCollectionDetailsAPI,
   getCollectionRecipes: getCollectionRecipesAPI,
   addRecipe: addRecipeAPI,
-  getRecipes:getRecipesAPI,
+  getRecipes: getRecipesAPI,
 };
 
 for (const key in API) {
