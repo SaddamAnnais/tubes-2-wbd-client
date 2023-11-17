@@ -1,27 +1,36 @@
-# React + TypeScript + Vite
+# Cooklyst - Who let them cook?
+> Tugas Milestone 2 IF3110 Web-based Application Development - Client Single Page Application (ReactJS)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Deskripsi
 
-Currently, two official plugins are available:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Screen
 
-## Expanding the ESLint configuration
+### Home Page  (/)
+![Home Page](readme/home.jpg)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Login Page  (/login)
+![Login Page](readme/login.jpg)
 
-- Configure the top-level `parserOptions` property like this:
+### Register Page  (/login)
+![Register Page](readme/register.jpg)
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+### Add Recipe Page  (/recipe/add)
+![Add Recipe Page](readme/add_recipe.jpg)
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### Edit Recipe Page  (/recipe/:id/edit)
+![Edit Recipe Page](readme/add_recipe.jpg)
+
+## View Recipe Page (/recipe/:id)
+![View Recipe Page](readme/view_recipe.jpg)
+
+### My Recipe Page  (/recipe)
+![My Recipe Page](readme/my_recipe.jpg)
+
+### My Collection Page  (/collection)
+![My Collection Page](readme/my_collection.jpg)
+
+### Subscriptions List Page (/subscriptions)
+![Subscription Page](readme/subscriptions.jpg)
+
+## Pembagian Tugas
