@@ -29,6 +29,7 @@ const Subscription = () => {
 
   const onReject = async (idx: number) => {
     await api.rejectSubscription(subs![idx].creatorID, subs![idx].subscriberID);
+    location.reload();
   };
 
   const openRejectModal = (
@@ -40,6 +41,7 @@ const Subscription = () => {
 
   const onApprove = async (idx: number) => {
     await api.approveSubscription(subs![idx].creatorID, subs![idx].subscriberID);
+    location.reload();
   };
 
   const openApproveModal = (
