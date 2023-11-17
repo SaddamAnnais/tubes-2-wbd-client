@@ -40,7 +40,7 @@ const Collection = () => {
     <main className={`w-full h-full pt-28 py-8 px-20 ${isModalsOpen ? 'fixed' : ''} `}>
       <AddCollectionModals isModalsOpen={isModalsOpen} setIsModalsOpen={setIsModalsOpen} />
       <header className="flex flex-row justify-between mb-8">
-        <h1 className="font-bold text-5xl">My Collection</h1>
+        <h1 className="font-bold text-5xl">My Collections</h1>
         <Button
           className="text-lg"
           onClick={() => {

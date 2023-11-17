@@ -77,8 +77,8 @@ const CollectionId = () => {
                 'https://www.fourpaws.com/-/media/Project/OneWeb/FourPaws/Images/articles/cat-corner/small-cat-breeds/munchkin-cropped.jpg'
               }
               duration={5}
-              tag='appetizer'
-              difficulty='easy'
+              tag="appetizer"
+              difficulty="easy"
             />
           );
         })}
