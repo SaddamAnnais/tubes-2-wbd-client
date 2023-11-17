@@ -15,6 +15,7 @@ import editRecipeAPI from './edit-recipe';
 import getPendingSubsAPI from './get-pending-subs';
 import approveSubscriptionAPI from './approve-subscription';
 import rejectSubscriptionAPI from './reject-subscription';
+import getRecipesAPI from './get-recipes';
 
 const APIInstance = axios.create();
 APIInstance.defaults.baseURL = import.meta.env.VITE_REST_URL;
@@ -29,6 +30,7 @@ const API = {
   getCollectionRecipes: getCollectionRecipesAPI,
   addRecipe: addRecipeAPI,
   getRecipe: getRecipeAPI,
+  getRecipes: getRecipesAPI,
   getRecipeVideo: getRecipeVideoAPI,
   addToCollection: addToCollectionAPI,
   editRecipe: editRecipeAPI,
