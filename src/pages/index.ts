@@ -1,5 +1,9 @@
 export { default as Login } from './login/page';
-export { default as Protected } from './protected/page';
 export { default as Register } from './register/page';
 export { default as Subscription } from './subscription/page';
 export { default as RecipeId } from './recipe/[id]/page';
+export { default as Collection } from './collection/page';
+export { default as CollectionId } from './collection/[id]/page';
+export { default as RecipeAdd } from './recipe/add/page';
+export { default as Recipe } from './recipe/page';
+export { default as RecipeEdit } from './recipe/edit/[id]/page';

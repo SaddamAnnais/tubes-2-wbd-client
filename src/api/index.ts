@@ -8,6 +8,13 @@ import getCollectionDetailsAPI from './getCollectionDetails';
 import getCollectionRecipesAPI from './getCollectionRecipes';
 
 import addRecipeAPI from './add-recipe';
+import getRecipeAPI from './get-recipe';
+import getRecipeVideoAPI from './get-recipe-video';
+import addToCollectionAPI from './add-to-collection';
+import editRecipeAPI from './edit-recipe';
+import getPendingSubsAPI from './get-pending-subs';
+import approveSubscriptionAPI from './approve-subscription';
+import rejectSubscriptionAPI from './reject-subscription';
 import getRecipesAPI from './getRecipes';
 
 const APIInstance = axios.create();
@@ -23,6 +30,13 @@ const API = {
   getCollectionRecipes: getCollectionRecipesAPI,
   addRecipe: addRecipeAPI,
   getRecipes: getRecipesAPI,
+  getRecipe: getRecipeAPI,
+  getRecipeVideo: getRecipeVideoAPI,
+  addToCollection: addToCollectionAPI,
+  editRecipe: editRecipeAPI,
+  getPendingSubs: getPendingSubsAPI,
+  approveSubscription: approveSubscriptionAPI,
+  rejectSubscription: rejectSubscriptionAPI,
 };
 
 for (const key in API) {
@@ -36,7 +50,7 @@ for (const key in API) {
       // NOTE: later check the result
       console.log(res, res.status);
 
-      if (!res.status) {
+      if (res.status === false) {
         throw new Error(res.message);
       }
 
