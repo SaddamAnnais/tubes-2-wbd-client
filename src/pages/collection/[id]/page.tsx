@@ -1,5 +1,5 @@
 import { useLocation, useParams } from 'react-router-dom';
-import RecipeCard from './RecipeCard';
+import RecipeCard from '../../recipe/RecipeCard';
 import { useEffect, useState } from 'react';
 import { useAPI } from '@/contexts';
 
@@ -76,6 +76,9 @@ const CollectionId = () => {
               cover={
                 'https://www.fourpaws.com/-/media/Project/OneWeb/FourPaws/Images/articles/cat-corner/small-cat-breeds/munchkin-cropped.jpg'
               }
+              duration={5}
+              tag='appetizer'
+              difficulty='easy'
             />
           );
         })}
