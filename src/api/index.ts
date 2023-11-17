@@ -2,6 +2,10 @@ import axios from 'axios';
 import loginAPI from './login';
 import registerAPI from './register';
 import selfAPI from './self';
+import collectionAPI from './getCollection';
+import createCollectionAPI from './createCollection';
+import getCollectionDetailsAPI from './getCollectionDetails';
+import getCollectionRecipesAPI from './getCollectionRecipes';
 
 const APIInstance = axios.create();
 APIInstance.defaults.baseURL = import.meta.env.VITE_REST_URL;
@@ -10,6 +14,11 @@ const API = {
   login: loginAPI,
   register: registerAPI,
   self: selfAPI,
+  getCollections: collectionAPI,
+  createCollection: createCollectionAPI,
+  getCollectionDetails: getCollectionDetailsAPI,
+  getCollectionRecipes: getCollectionRecipesAPI,
+  
 };
 
 for (const key in API) {

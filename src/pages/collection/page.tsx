@@ -3,7 +3,7 @@ import { Plus } from 'lucide-react';
 import CollectionCard from './CollectionCard';
 import { useState, useEffect } from 'react';
 import AddCollectionModals from './AddCollectionModals';
-import axios from 'axios';
+import { useAPI } from '@/contexts';
 
 interface Collection {
   id: number;
@@ -16,26 +16,24 @@ interface Collection {
 }
 
 const Collection = () => {
+  const { api } = useAPI();
   const [isModalsOpen, setIsModalsOpen] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
   const [componentArray, setComponentArray] = useState<Collection[]>([]);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-
-    axios
-      .get('http://localhost:3000/collection', {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then(({ data }) => {
-        const arrCollection: Collection[] = data.data;
-        setComponentArray(arrCollection);
-      })
-      .catch((error) => {
-        setErrorMsg('Error: ' + error);
-      });
+    const fetchCollections = async () => {
+      await api
+        .getCollections()
+        .then((value) => {
+          const arrCollection: Collection[] = value.data;
+          setComponentArray(arrCollection);
+        })
+        .catch((error) => {
+          setErrorMsg('Error: ' + error);
+        });
+    };
+    fetchCollections();
   }, [isModalsOpen]);
 
   return (
@@ -52,18 +50,18 @@ const Collection = () => {
           <Plus className="mr-2" /> New
         </Button>
       </header>
-      {errorMsg && <p className='text-red-700 mt-20'>{errorMsg}</p>}
+      {errorMsg && <p className="text-red-700 mt-20">{errorMsg}</p>}
       <div className="w-full h-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        
         {!errorMsg &&
           componentArray.length != 0 &&
           componentArray.map((collection) => {
+            const date = new Date(collection.created_at);
             return (
               <CollectionCard
                 key={collection.id}
                 title={collection.title}
                 total_recipe={collection.total_recipe}
-                created_at={new Date()}
+                created_at={date}
                 collection_id={collection.id}
                 cover={collection.cover}
               />

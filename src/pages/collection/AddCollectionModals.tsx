@@ -2,7 +2,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import axios from 'axios';
+import { useAPI } from '@/contexts';
+// import axios from 'axios';
 import { X } from 'lucide-react';
 import { MouseEvent, useRef, useState } from 'react';
 
@@ -14,33 +15,23 @@ interface AddCollectionModalsProps {
 const AddCollectionModals: React.FC<AddCollectionModalsProps> = ({ isModalsOpen, setIsModalsOpen }) => {
   const newCollectionNameRef = useRef<HTMLInputElement>(null);
   const [errorMsg, setErrorMsg] = useState('');
+  const { api } = useAPI();
 
-  const createCollectionHandler = () => {
-    // TODO: handler for creating a new collection
+  const createCollectionHandler = async () => {
     if (newCollectionNameRef.current) {
-      const inputValue = newCollectionNameRef.current.value;
-      const token = localStorage.getItem('token');
-
-      axios
-        .post(
-          'http://localhost:3000/collection',
-          {
-            title: inputValue,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          },
-        )
-        .then(() => {
-          if (newCollectionNameRef.current) newCollectionNameRef.current.value = '';
-          setErrorMsg('');
-          setIsModalsOpen(false);
-        })
-        .catch((error) => {
-          setErrorMsg('Error: ' + error);
-        });
+      if (newCollectionNameRef.current.value.trim().length != 0) {
+        const inputValue = newCollectionNameRef.current.value;
+        await api
+          .createCollection(inputValue)
+          .then(() => {
+            if (newCollectionNameRef.current) newCollectionNameRef.current.value = '';
+            setErrorMsg('');
+            setIsModalsOpen(false);
+          })
+          .catch((error) => {
+            setErrorMsg('Error: ' + error);
+          });
+      }
     }
   };
 

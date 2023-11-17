@@ -1,17 +1,52 @@
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import RecipeCard from './RecipeCard';
+import { useEffect, useState } from 'react';
+import { useAPI } from '@/contexts';
+
+interface collectionDetail {
+  id: number;
+  title: string;
+  created_at: string;
+  total_recipe: number;
+  cover: string;
+  user_id: number;
+  creator_name: string;
+}
 
 const CollectionId = () => {
+  const location = useLocation();
   const { id } = useParams();
+  const { api } = useAPI();
+  const [detail, setDetail] = useState<collectionDetail>();
+  // const []
 
-  // TODO: FETCH HERE
+  useEffect(() => {
+    const fetchDetails = async () => {
+      await api
+        .getCollectionDetails(id ? id : '0')
+        .then((value) => {
+          setDetail(value.data);
+        })
+        .catch((error) => {
+          console.error('Error: ' + error);
+        });
+    };
 
-  const playlist_title = 'title collection for id: ' + id;
-  const total_video = 3;
-  const username = 'Pak Gembus';
-  const date_created = new Date();
-  const cover =
-    'https://www.fourpaws.com/-/media/Project/OneWeb/FourPaws/Images/articles/cat-corner/small-cat-breeds/munchkin-cropped.jpg';
+    const fetchVideos = async () => {
+      await api
+        .getCollectionRecipes(id ? id : '0')
+        .then((value) => {
+          // setDetail(value.data);
+          console.log(value.data);
+        })
+        .catch((error) => {
+          console.error('Error: ' + error);
+        });
+    };
+
+    fetchDetails();
+    fetchVideos();
+  }, [location.pathname]);
 
   // TO BE DELETED
   const componentArray = new Array(12).fill(null);
@@ -19,11 +54,15 @@ const CollectionId = () => {
   return (
     <main className="w-full h-full flex flex-row pt-28 py-8 px-20">
       <div className="w-1/2 h-full justify-center items-center mx-2">
-        <p className="text-2xl font-semibold mb-4">{playlist_title}</p>
-        <img className="h-[20rem] w-full object-cover" src={cover} alt="cat" />
-        <p className="text-xl font-medium mt-4">Collection made by {username}</p>
-        <p className="text-xl font-medium mt-2">Created at: {date_created.toDateString()}</p>
-        <p className="text-xl font-medium mt-2">{total_video ? total_video + ' Videos' : 'No Video'}</p>
+        <p className="text-2xl font-semibold mb-4">{detail?.title}</p>
+        <img className="h-[20rem] w-full object-cover" src={detail?.cover} alt="cat" />
+        <p className="text-xl font-medium mt-4">Collection made by {detail?.creator_name}</p>
+        <p className="text-xl font-medium mt-2">
+          Created at: {detail ? new Date(detail.created_at).toLocaleDateString() : new Date().toLocaleDateString()}
+        </p>
+        <p className="text-xl font-medium mt-2">
+          {detail?.total_recipe ? detail.total_recipe + ' Videos' : 'No Video'}
+        </p>
       </div>
       <div className="w-1/2 h-[41rem] overflow-auto grid grid-cols-2 gap-2 mx-2">
         {/* iterate  */}
