@@ -12,6 +12,9 @@ import getRecipeAPI from './get-recipe';
 import getRecipeVideoAPI from './get-recipe-video';
 import addToCollectionAPI from './add-to-collection';
 import editRecipeAPI from './edit-recipe';
+import getPendingSubsAPI from './get-pending-subs';
+import approveSubscriptionAPI from './approve-subscription';
+import rejectSubscriptionAPI from './reject-subscription';
 
 const APIInstance = axios.create();
 APIInstance.defaults.baseURL = import.meta.env.VITE_REST_URL;
@@ -29,6 +32,9 @@ const API = {
   getRecipeVideo: getRecipeVideoAPI,
   addToCollection: addToCollectionAPI,
   editRecipe: editRecipeAPI,
+  getPendingSubs: getPendingSubsAPI,
+  approveSubscription: approveSubscriptionAPI,
+  rejectSubscription: rejectSubscriptionAPI,
 };
 
 for (const key in API) {

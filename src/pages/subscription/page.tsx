@@ -1,46 +1,36 @@
 import ConfirmDialog from '@/components/ConfirmDialog';
 import { Button } from '@/components/ui/button';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
+import { useAPI } from '@/contexts';
 import { Check, X } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 interface SubscriptionData {
-  creatorId: number;
-  creatorName: string;
-  requesterId: number;
-  requesterName: string;
+  creatorID: number;
+  subscriberID: number;
 }
 
 const Subscription = () => {
-  const subs: SubscriptionData[] = [
-    {
-      creatorId: 1,
-      creatorName: 'chi',
-      requesterId: 2,
-      requesterName: 'chi2',
-    },
-    {
-      creatorId: 1,
-      creatorName: 'chi',
-      requesterId: 2,
-      requesterName: 'chi2',
-    },
-    {
-      creatorId: 1,
-      creatorName: 'chi',
-      requesterId: 2,
-      requesterName: 'chi2',
-    },
-    {
-      creatorId: 1,
-      creatorName: 'chi',
-      requesterId: 2,
-      requesterName: 'chi2',
-    },
-  ];
+  const [subs, setSubs] = useState<SubscriptionData[]>();
+  const { api } = useAPI();
 
-  const onReject = (idx: number) => {
-    console.log('Reject: ' + idx);
+  const fetch = async () => {
+    const data = await api.getPendingSubs();
+    if (!data.data) {
+      return;
+    }
+    setSubs(data.data);
   };
+
+  useEffect(() => {
+    fetch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const onReject = async (idx: number) => {
+    await api.rejectSubscription(subs![idx].creatorID, subs![idx].subscriberID);
+  };
+
   const openRejectModal = (
     <Button variant="outline">
       <X size={18} strokeWidth={3} className="mr-2" />
@@ -48,8 +38,8 @@ const Subscription = () => {
     </Button>
   );
 
-  const onApprove = (idx: number) => {
-    console.log('Approve: ' + idx);
+  const onApprove = async (idx: number) => {
+    await api.approveSubscription(subs![idx].creatorID, subs![idx].subscriberID);
   };
 
   const openApproveModal = (
@@ -68,38 +58,39 @@ const Subscription = () => {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="text-left">Creator</TableHead>
-              <TableHead className="text-left">Requester</TableHead>
+              <TableHead className="text-left">Creator ID</TableHead>
+              <TableHead className="text-left">Requester ID</TableHead>
               <TableHead className="text-left">Action</TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
-            {subs.map((el, i) => {
-              return (
-                <TableRow key={i}>
-                  <TableCell className="text-left">{el.creatorName}</TableCell>
-                  <TableCell className="text-left">{el.requesterName}</TableCell>
-                  <TableCell className="flex flex-row gap-4">
-                    <ConfirmDialog
-                      title="Approve Subscription"
-                      desc="Are you sure? This action cannot be undone."
-                      onConfirm={() => {
-                        onApprove(i);
-                      }}
-                      openButton={openApproveModal}
-                    />
-                    <ConfirmDialog
-                      title="Reject Subscription"
-                      desc="Are you sure? This action cannot be undone."
-                      onConfirm={() => {
-                        onReject(i);
-                      }}
-                      openButton={openRejectModal}
-                    />
-                  </TableCell>
-                </TableRow>
-              );
-            })}
+            {subs &&
+              subs.map((el, i) => {
+                return (
+                  <TableRow key={i}>
+                    <TableCell className="text-left">{el.creatorID}</TableCell>
+                    <TableCell className="text-left">{el.subscriberID}</TableCell>
+                    <TableCell className="flex flex-row gap-4">
+                      <ConfirmDialog
+                        title="Approve Subscription"
+                        desc="Are you sure? This action cannot be undone."
+                        onConfirm={() => {
+                          onApprove(i);
+                        }}
+                        openButton={openApproveModal}
+                      />
+                      <ConfirmDialog
+                        title="Reject Subscription"
+                        desc="Are you sure? This action cannot be undone."
+                        onConfirm={() => {
+                          onReject(i);
+                        }}
+                        openButton={openRejectModal}
+                      />
+                    </TableCell>
+                  </TableRow>
+                );
+              })}
           </TableBody>
         </Table>
       </div>
