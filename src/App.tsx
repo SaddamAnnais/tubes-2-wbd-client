@@ -6,6 +6,7 @@ import { Layout } from './layouts';
 import Collection from './pages/collection/page';
 import CollectionId from './pages/collection/[id]/page';
 import RecipeAdd from './pages/recipe/add/page';
+import Recipe from './pages/recipe/page';
 
 const Router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ const Router = createBrowserRouter([
       {
         path: '/subscription',
         element: <Subscription />,
+      },
+      {
+        path: '/recipe',
+        element: <Recipe />,
       },
       {
         path: '/recipe/add',
