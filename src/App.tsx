@@ -64,10 +64,6 @@ const Router = createBrowserRouter([
         path: '/recipe/edit/:id',
         element: <RecipeEdit />,
       },
-      {
-        path: '*',
-        element: <div>Not Found</div>,
-      },
     ],
   },
 ]);
