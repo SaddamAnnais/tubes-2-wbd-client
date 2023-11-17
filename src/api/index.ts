@@ -18,7 +18,6 @@ const API = {
   createCollection: createCollectionAPI,
   getCollectionDetails: getCollectionDetailsAPI,
   getCollectionRecipes: getCollectionRecipesAPI,
-  
 };
 
 for (const key in API) {

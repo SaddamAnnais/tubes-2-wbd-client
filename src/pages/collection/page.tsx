@@ -34,7 +34,7 @@ const Collection = () => {
         });
     };
     fetchCollections();
-  }, [isModalsOpen]);
+  }, [isModalsOpen, api]);
 
   return (
     <main className={`w-full h-full pt-28 py-8 px-20 ${isModalsOpen ? 'fixed' : ''} `}>

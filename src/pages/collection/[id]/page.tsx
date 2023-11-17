@@ -46,7 +46,7 @@ const CollectionId = () => {
 
     fetchDetails();
     fetchVideos();
-  }, [location.pathname]);
+  }, [location.pathname, api, id]);
 
   // TO BE DELETED
   const componentArray = new Array(12).fill(null);
