@@ -55,11 +55,12 @@ const Subscription = () => {
   const openApproveModal = (
     <Button>
       <Check size={18} strokeWidth={3} className="mr-2" />
-      Reject
+      Approve
     </Button>
   );
+
   return (
-    <main className="w-full h-full pt-32 py-8 px-20">
+    <main className="w-full h-full pt-32 py-8 px-10 sm:px-20">
       <header className="flex flex-row justify-between mb-8">
         <h1 className="font-bold text-5xl">Manage Subscriptions</h1>
       </header>

@@ -7,6 +7,8 @@ import createCollectionAPI from './createCollection';
 import getCollectionDetailsAPI from './getCollectionDetails';
 import getCollectionRecipesAPI from './getCollectionRecipes';
 
+import addRecipeAPI from './add-recipe';
+
 const APIInstance = axios.create();
 APIInstance.defaults.baseURL = import.meta.env.VITE_REST_URL;
 
@@ -18,6 +20,7 @@ const API = {
   createCollection: createCollectionAPI,
   getCollectionDetails: getCollectionDetailsAPI,
   getCollectionRecipes: getCollectionRecipesAPI,
+  addRecipe: addRecipeAPI, 
 };
 
 for (const key in API) {
@@ -28,6 +31,9 @@ for (const key in API) {
     try {
       const res = await func(...args);
 
+      // NOTE: later check the result
+      console.log(res, res.status);
+      
       if (!res.status) {
         throw new Error(res.message);
       }
