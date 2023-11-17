@@ -14,24 +14,29 @@ const Navbar = () => {
       <div className="w-full h-full py-8 px-16 flex flex-row justify-between">
         <Logo />
         {user && (
-          <div className="w-1/4 h-full flex  justify-between items-center">
-            {!user.isAdmin && (
-              <>
-                <Button variant="outline" className="hover:text-white hover:bg-primary transition-all duration-300">
-                  <Link to="/recipe/add">New Recipe</Link>
-                </Button>
-                <Button variant="link" className="hover:text-neutral-600 transition-all">
-                  <Link to="/recipe">My Recipes</Link>
-                </Button>
-                <Button variant="link" className="hover:text-neutral-600 transition-all">
-                  <Link to="/collection">My Collections</Link>
-                </Button>
-              </>
-            )}
-            <Button variant="link" className="hover:text-neutral-600 transition-all" onClick={logout}>
-              Logout
-            </Button>
-          </div>
+          <>
+            <div className="w-1/4 h-full flex  justify-between items-center">
+              {!user.isAdmin && (
+                <>
+                  <Button variant="outline" className="hover:text-white hover:bg-primary transition-all duration-300">
+                    <Link to="/recipe/add">New Recipe</Link>
+                  </Button>
+                  <Button variant="link" className="hover:text-neutral-600 transition-all">
+                    <Link to="/recipe">My Recipes</Link>
+                  </Button>
+                  <Button variant="link" className="hover:text-neutral-600 transition-all">
+                    <Link to="/collection">My Collections</Link>
+                  </Button>
+                </>
+              )}
+              <Button variant="link" className="hover:text-neutral-600 transition-all" onClick={logout}>
+                Logout
+              </Button>
+            </div>
+            <div className="aspect-square">
+              <ModeToggle />
+            </div>
+          </>
         )}
       </div>
       <Separator className="w-screen" />
