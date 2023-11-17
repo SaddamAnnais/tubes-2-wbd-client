@@ -7,3 +7,4 @@ export { default as CollectionId } from './collection/[id]/page';
 export { default as RecipeAdd } from './recipe/add/page';
 export { default as Recipe } from './recipe/page';
 export { default as RecipeEdit } from './recipe/edit/[id]/page';
+export { default as Root } from './page';

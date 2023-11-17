@@ -29,7 +29,7 @@ const RecipeCard: React.FC<RecipeCardProps> = ({
         <CardContent>
           <CardTitle className="text-left mb-2">{recipe_name}</CardTitle>
           <CardDescription className="flex flex-row justify-between font-medium">
-            <p>{created_at.toLocaleDateString()}</p>
+            <p>{new Date(created_at).toLocaleDateString()}</p>
             <p>{duration + ' minute'}</p>
           </CardDescription>
           <CardFooter className="flex flex-row justify-between p-0 text-muted-foreground capitalize">
