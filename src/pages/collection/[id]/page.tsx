@@ -13,12 +13,31 @@ interface collectionDetail {
   creator_name: string;
 }
 
+interface recipe {
+  id: number;
+  created_at: string;
+  title: string;
+  desc: string;
+  tag: string;
+  difficulty: string;
+  duration: number;
+  image_path: string;
+  user_id: number;
+  video_path: string;
+}
+
+interface collectionRecipe {
+  collectionId: number;
+  recipeId: number;
+  recipe: recipe;
+}
+
 const CollectionId = () => {
   const location = useLocation();
   const { id } = useParams();
   const { api } = useAPI();
   const [detail, setDetail] = useState<collectionDetail>();
-  // const []
+  const [collectionRecipes, setCollectionRecipes] = useState<collectionRecipe[]>();
 
   useEffect(() => {
     const fetchDetails = async () => {
@@ -26,6 +45,7 @@ const CollectionId = () => {
         .getCollectionDetails(id ? id : '0')
         .then((value) => {
           setDetail(value.data);
+          console.log(value.data);
         })
         .catch((error) => {
           console.error('Error: ' + error);
@@ -36,7 +56,7 @@ const CollectionId = () => {
       await api
         .getCollectionRecipes(id ? id : '0')
         .then((value) => {
-          // setDetail(value.data);
+          setCollectionRecipes(value.data);
           console.log(value.data);
         })
         .catch((error) => {
@@ -47,9 +67,6 @@ const CollectionId = () => {
     fetchDetails();
     fetchVideos();
   }, [location.pathname, api, id]);
-
-  // TO BE DELETED
-  const componentArray = new Array(12).fill(null);
 
   return (
     <main className="w-full h-full flex flex-row pt-28 py-8 px-20">
@@ -66,19 +83,17 @@ const CollectionId = () => {
       </div>
       <div className="w-1/2 h-[41rem] overflow-auto grid grid-cols-2 gap-2 mx-2">
         {/* iterate  */}
-        {componentArray.map((_, index) => {
+        {collectionRecipes?.map((collectionRecipe, index) => {
           return (
             <RecipeCard
               key={index}
-              recipe_name="test recipe title"
-              created_at={new Date()}
-              recipe_id={1}
-              cover={
-                'https://www.fourpaws.com/-/media/Project/OneWeb/FourPaws/Images/articles/cat-corner/small-cat-breeds/munchkin-cropped.jpg'
-              }
-              duration={5}
-              tag="appetizer"
-              difficulty="easy"
+              recipe_name={collectionRecipe.recipe.title}
+              created_at={new Date(collectionRecipe.recipe.created_at)}
+              recipe_id={collectionRecipe.recipeId}
+              cover={collectionRecipe.recipe.image_path}
+              duration={collectionRecipe.recipe.duration}
+              tag={collectionRecipe.recipe.tag}
+              difficulty={collectionRecipe.recipe.difficulty}
             />
           );
         })}
