@@ -11,6 +11,7 @@ import {
   RecipeAdd,
   Recipe,
   RecipeEdit,
+  Root,
 } from './pages';
 
 const Router = createBrowserRouter([
@@ -19,6 +20,10 @@ const Router = createBrowserRouter([
     element: <Provider />,
     errorElement: <Provider />,
     children: [
+      {
+        path: '/',
+        element: <Root />,
+      },
       {
         path: '/login',
         element: <Login />,

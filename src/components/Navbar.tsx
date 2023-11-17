@@ -29,6 +29,13 @@ const Navbar = () => {
                   </Button>
                 </>
               )}
+              {user.isAdmin && (
+                <>
+                  <Button variant="outline" className="hover:text-white hover:bg-primary transition-all duration-300">
+                    <Link to="/subscription">Manage Subscription</Link>
+                  </Button>
+                </>
+              )}
               <Button variant="link" className="hover:text-neutral-600 transition-all" onClick={logout}>
                 Logout
               </Button>
