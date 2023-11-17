@@ -2,7 +2,7 @@
 > Tugas Milestone 2 IF3110 Web-based Application Development - Client Single Page Application (ReactJS)
 
 ## Deskripsi
-
+Sebuah aplikasi yang dibangun menggunakan ReactJS sebagai platform bagi creator dan admin untuk membuat dan mengedit resep premium
 
 ## Screen
 
