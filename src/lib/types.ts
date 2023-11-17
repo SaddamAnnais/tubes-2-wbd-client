@@ -16,10 +16,10 @@ export type User = {
 };
 
 export type RecipeData = {
-  title: string;
-  description: string;
-  diff: string;
-  tag: string;
-  video: string;
-  image: string;
-};
+    title: string,
+    desc: string,
+    difficulty: string,
+    tag: string,
+    video_path?: string,
+    image_path?: string,
+}

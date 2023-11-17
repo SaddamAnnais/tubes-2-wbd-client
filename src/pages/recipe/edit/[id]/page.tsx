@@ -4,25 +4,67 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 
-import { RecipeData } from '@/lib/types';
+import { RecipeData, Response } from '@/lib/types';
 
 import { useAPI } from '@/contexts';
 
 import { useState } from 'react';
-import { useNavigate } from 'react-router';
+import { useParams } from 'react-router';
 
-const RecipeAdd = () => {
-  const navigate = useNavigate();
+import { useEffect } from 'react';
+
+interface Recipe {
+  id: number;
+  title: string;
+  desc: string;
+  difficulty: string;
+  tag: string;
+  created_at: Date;
+}
+
+const RecipeEdit = () => {
   const { api } = useAPI();
+  const { id } = useParams();
+  const [recipe, setRecipe] = useState<Recipe | null>(null);
+  const [videoURL, setVideoURL] = useState<string | null>(null);
 
   const [image, setImage] = useState<File | null>(null);
   const [video, setVideo] = useState<File | null>(null);
+  
+
+  
+  const fetch = async () => {
+    const detail = await api.getRecipe(id!);
+    const video = await api.getRecipeVideo(id!);
+    if (!detail.data || !video) {
+      return;
+    }
+  
+
+    setRecipe(detail.data);
+    setVideoURL(window.URL.createObjectURL(video));
+
+
+    // set initial edit data
+    setFormData({
+        title: recipe!.title,
+        desc: recipe!.desc,
+        difficulty: recipe!.difficulty,
+        tag: recipe!.tag,
+    })
+  }
+
+  useEffect(() => {
+    fetch();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
 
   const [formData, setFormData] = useState<RecipeData>({
     title: '',
     desc: '',
-    difficulty: 'easy',
-    tag: 'appetizer',
+    difficulty: '',
+    tag: '',
   });
 
   const onChangeInput = (e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -51,7 +93,8 @@ const RecipeAdd = () => {
     setImage(e.target.files![0])
   };
 
-  const createRecipeHandler = async (formData: RecipeData) => {
+  const editRecipeHandler = async (formData: RecipeData) => {
+    
     if (
       formData.title == '' ||
       formData.desc == '' ||
@@ -64,15 +107,10 @@ const RecipeAdd = () => {
       return;
     }
 
-    const res = await api
-      .addRecipe(formData, video, image)
-      .then(() => {
-        navigate('/recipe');
-      })
-      .catch((error) => {
-        console.error('Error: ' + error);
-      });
-    console.log(res);
+    const res = await api.editRecipe(id!, formData, video, image);
+
+    // do something about the response
+    //    and redirect maybe?
   };
 
   return (
@@ -85,19 +123,19 @@ const RecipeAdd = () => {
           <Input value={formData.title} onChange={onChangeInput} name="title" placeholder="ex: Ayam Bakar Madu" />
         </div>
         <div className="flex flex-col space-y-1.5 ">
-          <Label htmlFor="description" className="text-left">
+          <Label htmlFor="desc" className="text-left">
             Description
           </Label>
           <Textarea
-            value={formData.description}
+            value={formData.desc}
             onChange={onChangeInput}
-            name="description"
+            name="desc"
             placeholder="ex: Resep terbaru ayam bakar madu"
             className=" min-h-[8rem] align-top resize-none px-2"
           />
         </div>
         <div className="flex flex-col space-y-1.5">
-          <Label htmlFor="diff" className="text-left">
+          <Label htmlFor="difficulty" className="text-left">
             Difficulty
           </Label>
           <RadioGroup
@@ -105,7 +143,7 @@ const RecipeAdd = () => {
             defaultValue="easy"
             className="w-1/2 flex justify-between"
             onValueChange={(val) => {
-              onChangeRadio('diff', val);
+              onChangeRadio('difficulty', val);
             }}
           >
             <div className="flex items-center space-x-2">
@@ -138,11 +176,11 @@ const RecipeAdd = () => {
           </RadioGroup>
         </div>
         <div className="flex flex-col space-y-1.5">
-          <Label htmlFor="username" className="text-left">
+          <Label htmlFor="tag" className="text-left">
             Tag
           </Label>
           <RadioGroup
-            name="diff"
+            name="tag"
             defaultValue="appetizer"
             className="w-4/5 flex justify-between"
             onValueChange={(val) => {
@@ -203,13 +241,13 @@ const RecipeAdd = () => {
         </div>
         <div className="flex flex-col space-y-1.5">
           <Button onClick={() => {
-            createRecipeHandler({
+            editRecipeHandler({
               title: formData.title,
-              desc: formData.description,
-              difficulty: formData.diff,
+              desc: formData.desc,
+              difficulty: formData.difficulty,
               tag: formData.tag,
-              video_path: formData.video,
-              image_path: formData.image
+              video_path: formData.video_path,
+              image_path: formData.image_path,
             });
           }}>
             Create
@@ -220,4 +258,4 @@ const RecipeAdd = () => {
   );
 };
 
-export default RecipeAdd;
+export default RecipeEdit;
