@@ -55,10 +55,10 @@ const Login = () => {
 
   return (
     <div className="w-full h-screen flex flex-col items-center justify-center p-0">
-      <Card className="w-1/3 h-1/2">
+      <Card className="w-1/2 h-2/3 lg:w-1/3 lg:h-1/2">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
-            <CardHeader>
+          <form onSubmit={form.handleSubmit(onSubmit)} className='w-full h-full flex justify-between items-center flex-col'>
+            <CardHeader className='w-full'>
               <CardTitle className="text-left">Login</CardTitle>
               <CardDescription className="text-left">Log into your Premium Creator Account</CardDescription>
             </CardHeader>

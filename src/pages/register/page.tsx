@@ -59,21 +59,21 @@ const Register = () => {
 
   return (
     <div className="w-full h-screen overflow-hidden flex items-center justify-center">
-      <Card className="w-1/3 h -1/2">
+      <Card className="mt-14 w-2/3 h-3/4 md:w-1/2 md:h-3/4 lg:mt-0 lg:w-1/3 lg:h-[55%]">
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)}>
-            <CardHeader>
+          <form onSubmit={form.handleSubmit(onSubmit)} className='w-full h-full flex justify-between items-center flex-col'>
+            <CardHeader className='w-full'>
               <CardTitle className="text-left">Register</CardTitle>
-              <CardDescription className="text-left">Register </CardDescription>
+              <CardDescription className="text-left">Register an Account</CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className='w-full'>
               <FormField
                 control={form.control}
                 name="username"
                 render={({ field }) => {
                   return (
                     <FormItem>
-                      <FormLabel className="text-left">Username</FormLabel>
+                      <FormLabel className="w-full">Username</FormLabel>
                       <FormControl>
                         <Input placeholder="ex: JohnDoe123" {...field} />
                       </FormControl>
@@ -109,7 +109,6 @@ const Register = () => {
                       <FormLabel>Password</FormLabel>
                       <FormControl>
                         <Input
-                          //  value={foronChangeInput}
                           type="password"
                           placeholder="Password"
                           {...field}
@@ -130,7 +129,7 @@ const Register = () => {
                 <span className="p-1">Register</span>
               </Button>
               <div>
-                <span>Already have an acoount? </span>
+                <span>Already have an account? </span>
                 <Button variant="link" className="p-0">
                   <Link to="/login">Sign In</Link>
                 </Button>
