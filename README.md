@@ -24,9 +24,6 @@ Sebuah aplikasi yang dibangun menggunakan ReactJS sebagai platform bagi creator 
 
 ![Add Recipe Page](readme/add_recipe.jpg)
 
-### Edit Recipe Page  (/recipe/:id/edit)
-![Edit Recipe Page](readme/edit_recipe.jpg)
-
 ## View Recipe Page (/recipe/:id)
 
 ![View Recipe Page](readme/view_recipe.jpg)
