@@ -48,7 +48,7 @@ const RecipeId = () => {
         </header>
         <div className="w-full h-full flex flex-row justify-between mb-7">
           <AddToCollection />
-          <Link to={`/edit/${recipe.id}`}>
+          <Link to={`/recipe/edit/${recipe.id}`}>
             <Button className="rounded-full aspect-square p-1">
               <Pencil size={18} strokeWidth={3} />
             </Button>

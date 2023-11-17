@@ -30,16 +30,13 @@ const RecipeEdit = () => {
 
   const [image, setImage] = useState<File | null>(null);
   const [video, setVideo] = useState<File | null>(null);
-  
 
-  
   const fetch = async () => {
     const detail = await api.getRecipe(id!);
     const video = await api.getRecipeVideo(id!);
     if (!detail.data || !video) {
       return;
     }
-  
 
     setRecipe(detail.data);
     setVideoURL(window.URL.createObjectURL(video));
@@ -94,7 +91,7 @@ const RecipeEdit = () => {
   };
 
   const editRecipeHandler = async (formData: RecipeData) => {
-    
+
     if (
       formData.title == '' ||
       formData.desc == '' ||
