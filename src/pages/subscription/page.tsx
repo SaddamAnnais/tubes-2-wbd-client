@@ -5,6 +5,8 @@ import { useAPI } from '@/contexts';
 import { Check, X } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
+import { redirect } from 'react-router-dom';
+
 interface SubscriptionData {
   creatorID: number;
   subscriberID: number;
@@ -29,7 +31,7 @@ const Subscription = () => {
 
   const onReject = async (idx: number) => {
     await api.rejectSubscription(subs![idx].creatorID, subs![idx].subscriberID);
-    location.reload();
+    redirect('/');
   };
 
   const openRejectModal = (
@@ -41,7 +43,7 @@ const Subscription = () => {
 
   const onApprove = async (idx: number) => {
     await api.approveSubscription(subs![idx].creatorID, subs![idx].subscriberID);
-    location.reload();
+    redirect('/');
   };
 
   const openApproveModal = (
