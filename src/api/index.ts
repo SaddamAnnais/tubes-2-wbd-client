@@ -8,6 +8,8 @@ import getCollectionDetailsAPI from './getCollectionDetails';
 import getCollectionRecipesAPI from './getCollectionRecipes';
 
 import addRecipeAPI from './add-recipe';
+import getRecipeAPI from './get-recipe';
+import getRecipeVideoAPI from './get-recipe-video';
 
 const APIInstance = axios.create();
 APIInstance.defaults.baseURL = import.meta.env.VITE_REST_URL;
@@ -21,6 +23,8 @@ const API = {
   getCollectionDetails: getCollectionDetailsAPI,
   getCollectionRecipes: getCollectionRecipesAPI,
   addRecipe: addRecipeAPI,
+  getRecipe: getRecipeAPI,
+  getRecipeVideo: getRecipeVideoAPI,
 };
 
 for (const key in API) {
@@ -34,7 +38,7 @@ for (const key in API) {
       // NOTE: later check the result
       console.log(res, res.status);
 
-      if (!res.status) {
+      if (res.status === false) {
         throw new Error(res.message);
       }
 
